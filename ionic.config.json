@@ -1,0 +1,7 @@
+{
+  "name": "simcard-frontend-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,152 @@
+
+
+<ion-content class="summary-page">
+  <div class="container">
+    <div class="header-row">
+      <div class="title-row">
+        <h2>Import Summary</h2>
+        <p class="subtitle">Review the results of your import operation</p>
+      </div>
+    </div>
+
+    <div class="summary-wrapper">
+      <div class="summary-card">
+        <div class="summary-header">
+          <!-- <h3>Import Summary</h3> -->
+          <p class="muted">
+            File: <span class="file-name">{{ fileName }}</span>
+          </p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card primary">
+            <div class="stat-value">{{ importResult?.total || 0 }}</div>
+            <div class="stat-label">Total Rows</div>
+          </div>
+          <div class="stat-card success">
+            <div class="stat-value">{{ createdCount }}</div>
+            <div class="stat-label">Successfully Imported</div>
+          </div>
+          <div class="stat-card warn">
+            <div class="stat-value">{{ skippedCount }}</div>
+            <div class="stat-label">Skipped (Duplicate)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-card">
+        <div class="tabs">
+          <button
+            [class.active]="activeTab === 'created'"
+            (click)="activeTab = 'created'"
+          >
+            IMPORTED ({{ createdCount }})
+          </button>
+          <button
+            [class.active]="activeTab === 'skipped'"
+            (click)="activeTab = 'skipped'"
+          >
+            SKIPPED ({{ skippedCount }})
+          </button>
+          <button
+            *ngIf="errorCount > 0"
+            [class.active]="activeTab === 'errors'"
+            (click)="activeTab = 'errors'"
+          >
+            ERRORS ({{ errorCount }})
+          </button>
+        </div>
+
+        <div class="results-body">
+          <div *ngIf="activeTab === 'created' || !activeTab">
+            <div *ngIf="createdResults.length === 0" class="empty-state">
+              <div class="empty-icon">
+                <ion-icon name="file-tray"></ion-icon>
+              </div>
+              <h4>Successfully Imported Items</h4>
+              <p class="muted">No items were imported in this session.</p>
+            </div>
+            <ion-list *ngIf="createdResults.length > 0">
+              <ion-item
+                *ngFor="let item of createdResults"
+                (click)="showItemDetails(item)"
+              >
+                <ion-icon
+                  slot="start"
+                  name="checkmark-circle"
+                  color="success"
+                ></ion-icon>
+                <ion-label>
+                  <h3>Line {{ item.line }}</h3>
+                  <p *ngIf="item.serial">Serial: {{ item.serial }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+
+          <div *ngIf="activeTab === 'skipped'">
+            <div *ngIf="skippedResults.length === 0" class="empty-state">
+              <div class="empty-icon">
+                <ion-icon name="file-tray"></ion-icon>
+              </div>
+              <h4>Skipped Items</h4>
+              <p class="muted">No skipped items.</p>
+            </div>
+            <ion-list *ngIf="skippedResults.length > 0">
+              <ion-item
+                *ngFor="let item of skippedResults"
+                (click)="showItemDetails(item)"
+              >
+                <ion-icon
+                  slot="start"
+                  name="alert-circle"
+                  color="warning"
+                ></ion-icon>
+                <ion-label>
+                  <h3>Line {{ item.line }}</h3>
+                  <p *ngIf="item.reason">{{ item.reason }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+
+          <div *ngIf="activeTab === 'errors'">
+            <div *ngIf="errorResults.length === 0" class="empty-state">
+              <div class="empty-icon">
+                <ion-icon name="file-tray"></ion-icon>
+              </div>
+              <h4>Errors</h4>
+              <p class="muted">No error items.</p>
+            </div>
+            <ion-list *ngIf="errorResults.length > 0">
+              <ion-item
+                *ngFor="let item of errorResults"
+                (click)="showItemDetails(item)"
+              >
+                <ion-icon
+                  slot="start"
+                  name="close-circle"
+                  color="danger"
+                ></ion-icon>
+                <ion-label>
+                  <h3>Line {{ item.line }}</h3>
+                  <p *ngIf="item.reason">{{ item.reason }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <ion-button expand="block" (click)="importAnother()">
+            <ion-icon slot="start" name="refresh"></ion-icon>
+            IMPORT ANOTHER FILE
+          </ion-button>
+          <ion-button expand="block" color="medium" (click)="goBack()">
+            <ion-icon slot="start" name="arrow-back"></ion-icon>
+            BACK TO STOCK IN
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

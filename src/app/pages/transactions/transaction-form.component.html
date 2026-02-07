@@ -1,0 +1,103 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/transactions"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{
+      editing ? "Edit Transaction" : "New Transaction"
+    }}</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="form-content">
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h2 class="form-title">
+          {{ editing ? "Update Transaction Record" : "Add New Transaction" }}
+        </h2>
+        <p class="form-subtitle">
+          {{
+            editing
+              ? "Modify the transaction details below"
+              : "Record a new SIM card transaction in the system"
+          }}
+        </p>
+      </div>
+
+      <div class="form-body">
+        <div class="form-group">
+          <label class="form-label"
+            >SIM Card <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-select
+              class="form-select"
+              [(ngModel)]="model.simCardId"
+              interface="popover"
+              placeholder="Select SIM card"
+            >
+              <ion-select-option *ngFor="let s of sims" [value]="s.id">
+                {{ s.serialNumber || s.msisdn || "ID " + s.id }} -
+                {{ s.simType?.name || "-" }}
+              </ion-select-option>
+            </ion-select>
+          </div>
+          <p class="form-help">Choose the SIM card for this transaction</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"
+            >Transaction Type <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-select
+              class="form-select"
+              [(ngModel)]="model.type"
+              interface="popover"
+            >
+              <ion-select-option value="STOCK_IN">Stock In</ion-select-option>
+              <ion-select-option value="STOCK_OUT">Stock Out</ion-select-option>
+            </ion-select>
+          </div>
+          <p class="form-help">
+            Select whether this is incoming or outgoing stock
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <div class="input-wrapper">
+            <ion-select
+              class="form-select"
+              [(ngModel)]="model.customerId"
+              interface="popover"
+              placeholder="Select customer (optional)"
+            >
+              <ion-select-option [value]="null">None</ion-select-option>
+              <ion-select-option *ngFor="let c of customers" [value]="c.id">
+                {{ c.name }}
+              </ion-select-option>
+            </ion-select>
+          </div>
+          <p class="form-help">
+            Optional: Assign this transaction to a customer
+          </p>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <ion-button fill="clear" class="btn-cancel" (click)="goList()">
+          Cancel
+        </ion-button>
+        <ion-button class="btn-submit" (click)="save()">
+          <ion-icon
+            slot="start"
+            [name]="editing ? 'checkmark-circle' : 'add-circle'"
+          ></ion-icon>
+          {{ editing ? "Update Transaction" : "Create Transaction" }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

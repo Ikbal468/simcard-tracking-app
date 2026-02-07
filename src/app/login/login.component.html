@@ -1,0 +1,55 @@
+<ion-content class="login-page" fullscreen>
+  <div class="login-wrapper">
+    <div class="brand">
+      <img src="assets/simcard-logo.png" alt="logo" />
+      <h1>SimCard Tracker</h1>
+      <p class="subtitle">Manage your SIM inventory securely</p>
+    </div>
+
+    <div class="card">
+      <ion-item lines="full" class="input-item">
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-input
+          autocapitalize="off"
+          spellcheck="false"
+          [(ngModel)]="username"
+          placeholder="Username"
+          autocomplete="new-password"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="input-item">
+        <ion-icon name="lock-closed" slot="start"></ion-icon>
+        <ion-input
+          autocapitalize="off"
+          spellcheck="false"
+          [(ngModel)]="password"
+          type="password"
+          placeholder="Password"
+          autocomplete="new-password"
+        ></ion-input>
+      </ion-item>
+
+      <div class="options">
+        <ion-checkbox slot="start" [(ngModel)]="remember"></ion-checkbox>
+        <span class="remember-text">Remember me</span>
+        <a
+          class="forgot"
+          (click)="showToast('Please contact admin to reset password')"
+          >Forgot?</a
+        >
+      </div>
+
+      <ion-button
+        expand="block"
+        class="primary-btn"
+        (click)="login()"
+        [disabled]="loading"
+      >
+        {{ loading ? "Signing in..." : "Sign In" }}
+      </ion-button>
+    </div>
+
+    <div class="footer">© 2026 SimCard Tracker</div>
+  </div>
+</ion-content>

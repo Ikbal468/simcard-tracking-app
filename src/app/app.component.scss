@@ -1,0 +1,505 @@
+:root {
+  --teal: #0fb9b1;
+  --app-header-height: 80px;
+  --primary-blue: #3b82f6;
+  --sidebar-dark: #1e293b;
+  --sidebar-border: rgba(100, 116, 139, 0.2);
+}
+
+ion-split-pane {
+  --side-max-width: 310px;
+}
+
+.versioning {
+  padding: 0 8px;
+  background-color: var(--teal);
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-weight: 500;
+  border-top-left-radius: 4px;
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: #676767;
+}
+
+#container {
+  display: flex;
+  color: #333333;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+}
+
+.menuicon {
+  font-size: 22px;
+  color: #cbd5e1;
+  position: relative;
+  top: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.submenuicon {
+  font-size: 18px;
+  color: #676767;
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+}
+.notifyicon {
+  font-size: 24px;
+  color: #9a5cff;
+  position: relative;
+  top: 8px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+.profileicon {
+  font-size: 24px;
+  color: #676767;
+  position: relative;
+  top: 8px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.profiletext {
+  font-size: 12px;
+  color: #000;
+}
+
+.userinfo {
+  padding: 32px;
+  border-bottom: 1px solid var(--sidebar-border);
+  background-color: transparent;
+  min-height: 100px;
+}
+.userinfo .greetingtext {
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.userinfo .profiletext {
+  font-size: 14px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.userinfo .profiletext::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+}
+
+/* Menu structure */
+.navigation {
+  width: 100%;
+  margin: 0;
+  padding: 24px 16px;
+}
+
+.section-divider {
+  padding: 16px 16px 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+.mainmenu,
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mainmenu ion-item,
+.mainmenu a {
+  display: block;
+  background-color: transparent;
+  text-decoration: none;
+  color: #cbd5e1;
+  font-weight: 500;
+  font-size: 15px;
+  border-bottom: none;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  --min-height: 48px;
+  transition: all 0.2s ease;
+}
+
+.mainmenu ion-item:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.mainmenu ion-item:hover .menuicon {
+  color: #ffffff;
+}
+
+.submenu a {
+  color: #676767;
+  padding: 10px 0 10px 30px;
+}
+.submenu a:hover {
+  color: #0fb9b1;
+}
+.submenu {
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: all 0.5s ease-out;
+}
+
+.menuitem.active-link,
+a.active-link,
+ion-item.active-link {
+  color: var(--primary-blue) !important;
+  --background: rgba(59, 130, 246, 0.1) !important;
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 0 8px 8px 0;
+  margin-left: 0;
+}
+.menuitem.active-link ::ng-deep .menuicon,
+ion-item.active-link ::ng-deep .menuicon {
+  color: var(--primary-blue);
+}
+
+.menuitem {
+  cursor: pointer !important;
+}
+.menuitem:hover:not(.active-link) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.mat-expansion-panel-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 !important;
+  border-radius: inherit;
+  transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header styles */
+.app-header {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+.app-header ion-toolbar {
+  background: #ffffff;
+  height: var(--app-header-height);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: none;
+  --padding-start: 32px;
+  --padding-end: 32px;
+}
+ion-content {
+  --padding-top: var(--app-header-height);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 20px;
+}
+.logo-wrap img {
+  height: 60px;
+  object-fit: contain;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+}
+.profile-btn {
+  color: #64748b;
+  font-size: 32px;
+  transition: color 0.2s ease;
+}
+.profile-btn:hover {
+  color: #334155;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.notification-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: background 0.2s ease;
+}
+.notification-btn:hover {
+  background: #f1f5f9;
+}
+.notification-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+.header-divider {
+  width: 1px;
+  height: 32px;
+  background: #e2e8f0;
+  margin: 0 8px;
+}
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 4px 4px 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.profile-section:hover {
+  background: #f8fafc;
+}
+.profile-info {
+  text-align: right;
+  display: none;
+}
+@media (min-width: 640px) {
+  .profile-info {
+    display: block;
+  }
+}
+.profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.2;
+}
+.profile-role {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.2;
+}
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: blue;
+  box-shadow: 0 0 0 2px blue;
+}
+.search-container {
+  display: none;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  max-width: 320px;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .search-container {
+    display: flex;
+  }
+}
+.search-container:focus-within {
+  border-color: var(--primary-blue);
+  background: white;
+}
+.search-icon {
+  color: #94a3b8;
+  font-size: 20px;
+  margin-right: 8px;
+}
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  color: #1e293b;
+}
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Split pane sidebar refinements */
+/* Split pane sidebar refinements */
+.app-sidenav {
+  background: var(--sidebar-dark);
+  border-right: 1px solid var(--sidebar-border);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+}
+.app-sidenav ion-content {
+  height: 100%;
+  overflow: auto;
+}
+.menuitem.active-link {
+  border-left: 6px solid var(--teal);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* custom scrollbar for desktop */
+.app-sidenav ion-content::-webkit-scrollbar {
+  width: 10px;
+}
+.app-sidenav ion-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+}
+
+.main-content-pad {
+  /* push page content below the fixed header so it doesn't overlap */
+  padding: 18px;
+  background: #f9fafb;
+  // min-height: calc(100vh - var(--app-header-height));
+}
+
+/* Ensure any page-level ion-content inside the main area offsets for the fixed header */
+
+/* Apply header offset to outer ion-content and any nested ion-content to avoid overlap */
+#main-content > ion-content,
+#main-content ion-content,
+#main-content ion-content ion-content,
+#main-content ion-content .ion-page > ion-content {
+  --padding-top: calc(var(--app-header-height) + 18px) !important;
+  padding-top: calc(var(--app-header-height) + 18px) !important;
+}
+
+/* Also ensure the router outlet container has top offset when used */
+.main-content-pad {
+  padding-top: calc(var(--app-header-height) + 18px) !important;
+}
+
+/* Ensure the ionic menu and its inner parts render with the dark sidebar */
+.app-sidenav,
+.app-sidenav ion-menu,
+.app-sidenav ion-content,
+.app-sidenav .navigation,
+.app-sidenav ion-list {
+  background: var(--sidebar-dark) !important;
+  color: #cbd5e1 !important;
+}
+.app-sidenav ion-item,
+.app-sidenav ion-item::part(native) {
+  --background: transparent;
+  background: transparent !important;
+  color: #cbd5e1 !important;
+}
+.app-sidenav ion-item .menuicon,
+.app-sidenav ion-item ion-icon {
+  color: #94a3b8 !important;
+}
+.app-sidenav ion-label {
+  color: #cbd5e1 !important;
+}
+/* Active item visual inside the menu */
+.app-sidenav .menuitem.active-link,
+.app-sidenav ion-item.active-link {
+  color: var(--primary-blue) !important;
+  --background: rgba(59, 130, 246, 0.06) !important;
+  background: rgba(59, 130, 246, 0.06) !important;
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 0 8px 8px 0;
+}
+.app-sidenav .section-divider {
+  color: #94a3b8;
+}
+.app-sidenav ion-header {
+  background: transparent !important;
+}
+
+@media screen and (max-width: 980px) {
+  #leftwing {
+    width: 100%;
+  }
+  #container {
+    display: flex;
+    flex-direction: column;
+  }
+  .navigation {
+    width: 100%;
+    margin: 0 0 20px 0 !important;
+  }
+  .mobiledisplay {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .userinfo {
+    display: none;
+  }
+  .logo-wrap img {
+    height: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-sidenav {
+    --width: 220px;
+  }
+  .logo-wrap img {
+    height: 48px;
+  }
+}
+
+/* Strong scrollbar + active-tab visuals for the sidebar */
+.app-sidenav ion-content {
+  /* Firefox */
+  scrollbar-color: #3b82f6 #0f1720; /* thumb track */
+  scrollbar-width: thin;
+}
+.app-sidenav ion-content::-webkit-scrollbar {
+  width: 12px;
+}
+.app-sidenav ion-content::-webkit-scrollbar-track {
+  background: #111827; /* darker track to match sidebar */
+}
+.app-sidenav ion-content::-webkit-scrollbar-thumb {
+  background: #3b82f6; /* bright blue thumb */
+  border-radius: 8px;
+  border: 3px solid #0f1720; /* inset to match track */
+}
+
+.app-sidenav .menuitem.active-link,
+.app-sidenav ion-item.active-link {
+  background: rgba(59, 130, 246, 0.16) !important; /* soft blue background */
+  color: #ffffff !important;
+  --color: #ffffff !important;
+  border-left: 5px solid #3b82f6 !important; /* brighter left accent */
+  box-shadow: inset 8px 0 0 rgba(59, 130, 246, 0.02);
+}
+.app-sidenav .menuitem.active-link .menuicon,
+.app-sidenav ion-item.active-link ion-icon {
+  color: #ffffff !important;
+}
+.app-sidenav .menuitem.active-link ion-label,
+.app-sidenav ion-item.active-link ion-label {
+  color: #ffffff !important;
+}

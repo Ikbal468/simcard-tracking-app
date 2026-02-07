@@ -1,0 +1,37 @@
+// For information on how to create your own theme, please refer to:
+// https://ionicframework.com/docs/theming/
+
+:root {
+  --ion-color-primary: #0fb9b1;
+  --ion-color-primary-rgb: 15, 185, 177;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+
+  --ion-color-secondary: #10b981;
+  --ion-color-tertiary: #7c3aed;
+
+  --ion-card-background: #ffffff;
+}
+
+ion-card {
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+}
+
+.status-pill {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ion-color-primary-contrast);
+}
+
+.status-active {
+  background: var(--ion-color-secondary);
+}
+.status-inactive {
+  background: #f97316;
+}
+.status-suspended {
+  background: #ef4444;
+}

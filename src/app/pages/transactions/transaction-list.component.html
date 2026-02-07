@@ -1,0 +1,136 @@
+<!-- Transactions List -->
+<ion-content>
+  <div class="transactions-page">
+    <header class="page-header">
+      <div class="header-left">
+        <div class="title-row">
+          <h1 class="page-title">Transactions History</h1>
+          <span class="count-badge">{{ total || 0 }}</span>
+        </div>
+        <p class="subheading">Manage and track your device inventory</p>
+      </div>
+
+      <div class="header-right">
+        <div class="search-wrap">
+          <span class="search-icon"><ion-icon name="search"></ion-icon></span>
+          <input
+            type="text"
+            placeholder="Search serial number"
+            [(ngModel)]="serialNumber"
+            (input)="onSearchInput($event)"
+            class="search-input"
+          />
+        </div>
+
+        <div class="status-select">
+          <ion-item lines="none">
+            <ion-label class="ion-margin-end">Status:</ion-label>
+            <ion-select
+              [(ngModel)]="simStatus"
+              (ionChange)="onFilterChange()"
+              interface="popover"
+            >
+              <ion-select-option value="">All</ion-select-option>
+              <ion-select-option value="IN_STOCK">IN_STOCK</ion-select-option>
+              <ion-select-option value="OUT_STOCK">OUT_STOCK</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+    </header>
+
+    <section class="table-card">
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Serial Number</th>
+              <th>IMSI</th>
+              <th>Status</th>
+              <th>Customer</th>
+              <th>Created</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of transactions; let i = index">
+              <td>{{ (page - 1) * limit + i + 1 }}</td>
+              <td class="serial">
+                {{ t.simCard?.serialNumber || t.simCard?.msisdn || "-" }}
+              </td>
+              <td>{{ t.simCard?.imsi || "-" }}</td>
+              <td>
+                <span
+                  class="status-badge"
+                  [ngClass]="{
+                    'in-stock': t.simCard?.status === 'IN_STOCK',
+                    'out-stock': t.simCard?.status !== 'IN_STOCK',
+                  }"
+                  >{{ t.simCard?.status || "-" }}</span
+                >
+              </td>
+              <td>{{ t.customer?.name || "-" }}</td>
+              <td>{{ t.createdAt | date: "short" }}</td>
+              <td class="actions">
+                <button
+                  class="icon-btn"
+                  (click)="$event.stopPropagation(); edit(t.id)"
+                >
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button
+                  class="icon-btn delete"
+                  (click)="$event.stopPropagation(); remove(t.id)"
+                >
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="!transactions || transactions.length === 0">
+              <td colspan="7">No transactions found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div class="footer-left">
+          <div class="per-page">
+            <label class="per-page-label">Items per page:</label>
+            <div class="select-wrap">
+              <select
+                class="page-select"
+                [(ngModel)]="limit"
+                (ngModelChange)="onLimitChange($event)"
+              >
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="100">100</option>
+              </select>
+              <div class="select-arrow">▾</div>
+            </div>
+          </div>
+          <div class="range">
+            {{ (page - 1) * limit + (transactions.length ? 1 : 0) }} –
+            {{ (page - 1) * limit + (transactions.length || 0) }} of {{ total }}
+          </div>
+        </div>
+        <div class="footer-right">
+          <button class="page-btn" [disabled]="page <= 1" (click)="prevPage()">
+            ‹
+          </button>
+          <button
+            class="page-btn"
+            [disabled]="page >= totalPages"
+            (click)="nextPage()"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

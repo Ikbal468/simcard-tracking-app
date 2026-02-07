@@ -1,0 +1,266 @@
+<ion-content class="dashboard-content">
+  <div class="dashboard-container" *ngIf="!loading; else loadingTpl">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon blue"><ion-icon name="layers"></ion-icon></div>
+          <span class="stat-badge">Total</span>
+        </div>
+        <p class="stat-label">Total Stock</p>
+        <h3 class="stat-value">{{ data?.total || 0 }}</h3>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon indigo">
+            <ion-icon name="cloud-download"></ion-icon>
+          </div>
+          <span class="stat-badge positive">In</span>
+        </div>
+        <p class="stat-label">In Stock</p>
+        <h3 class="stat-value">{{ data?.inStock || 0 }}</h3>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon amber">
+            <ion-icon name="cloud-upload"></ion-icon>
+          </div>
+          <span class="stat-badge negative">Out</span>
+        </div>
+        <p class="stat-label">Out Stock</p>
+        <h3 class="stat-value">{{ data?.outStock || 0 }}</h3>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon teal"><ion-icon name="people"></ion-icon></div>
+          <span class="stat-badge">Customers</span>
+        </div>
+        <p class="stat-label">Top Customers</p>
+        <h3 class="stat-value">{{ data?.byCustomer?.length || 0 }}</h3>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card large-chart">
+        <div class="chart-header">
+          <div>
+            <h4 class="chart-title">Transaction History</h4>
+            <p class="chart-subtitle">Stock In vs Stock Out</p>
+          </div>
+          <ion-select
+            [(ngModel)]="selectedPeriod"
+            class="period-select"
+            interface="popover"
+            (ionChange)="onPeriodChange()"
+          >
+            <ion-select-option value="7">Last 7 Days</ion-select-option>
+            <ion-select-option value="30">Last 30 Days</ion-select-option>
+            <ion-select-option value="365">All</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="chart-container">
+          <canvas #lineChart></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h4 class="chart-title">Stock by SIM Type</h4>
+        <p class="chart-subtitle">Current distribution</p>
+        <div class="donut-chart-wrapper">
+          <canvas #simChart></canvas>
+          <div class="donut-center">
+            <p class="donut-value">{{ data?.total || 0 }}</p>
+            <p class="donut-label">TOTAL</p>
+          </div>
+        </div>
+        <div class="sim-types-list">
+          <div class="sim-type-item" *ngFor="let t of simTypes">
+            <div class="sim-type-info">
+              <span
+                class="sim-type-dot"
+                [style.background-color]="t.color"
+              ></span>
+              <span class="sim-type-name">{{ t.name }}</span>
+            </div>
+            <span class="sim-type-percentage">{{ t.count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h4 class="chart-title">Total per Customer</h4>
+        <p class="chart-subtitle">Top accounts</p>
+        <div class="chart-container small" style="height: 220px">
+          <canvas #customerChart></canvas>
+        </div>
+        <div class="customer-list">
+          <div class="customer-item" *ngFor="let c of topCustomers">
+            <div class="customer-name">{{ c.name }}</div>
+            <div class="customer-count">{{ c.count }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loadingTpl>
+    <div class="loading-wrap">
+      <ion-spinner name="crescent"></ion-spinner>
+      <ion-header>
+        <ion-toolbar class="header-toolbar">
+          <ion-title class="font-display">Inventory Analytics</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="dashboard-content">
+        <div class="flex-1 overflow-y-auto p-6 custom-scrollbar">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="card">
+              <div class="card-top">
+                <div class="icon-wrap blue">
+                  <ion-icon name="inventory_2"></ion-icon>
+                </div>
+                <div class="label">Total</div>
+              </div>
+              <div class="card-body">
+                <p class="muted">Total Stock</p>
+                <h3 class="big">{{ data?.total || 0 }}</h3>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-top">
+                <div class="icon-wrap green">
+                  <ion-icon name="archive"></ion-icon>
+                </div>
+                <div class="label">In</div>
+              </div>
+              <div class="card-body">
+                <p class="muted">In Stock</p>
+                <h3 class="big">{{ data?.inStock || 0 }}</h3>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-top">
+                <div class="icon-wrap orange">
+                  <ion-icon name="unarchive"></ion-icon>
+                </div>
+                <div class="label">Out</div>
+              </div>
+              <div class="card-body">
+                <p class="muted">Out Stock</p>
+                <h3 class="big">{{ data?.outStock || 0 }}</h3>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-top">
+                <div class="icon-wrap purple">
+                  <ion-icon name="groups"></ion-icon>
+                </div>
+                <div class="label">Customers</div>
+              </div>
+              <div class="card-body">
+                <p class="muted">Top Customers</p>
+                <h3 class="big">{{ data?.byCustomer?.length || 0 }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+            <div class="lg:col-span-2 card p-6">
+              <div class="flex justify-between items-center mb-4">
+                <div>
+                  <h4 class="font-display">Transaction History</h4>
+                  <p class="muted">Stock In vs Stock Out</p>
+                </div>
+                <ion-select
+                  [(ngModel)]="selectedPeriod"
+                  (ionChange)="onPeriodChange()"
+                  interface="popover"
+                >
+                  <ion-select-option value="7">Last 7 Days</ion-select-option>
+                  <ion-select-option value="30">Last 30 Days</ion-select-option>
+                  <ion-select-option value="365">All</ion-select-option>
+                </ion-select>
+              </div>
+              <div class="relative h-64">
+                <div class="chart-area">
+                  <canvas #lineChart></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <h4 class="font-display">Stock by SIM Type</h4>
+              <p class="muted">Current distribution</p>
+              <div class="relative my-4 flex items-center justify-center">
+                <div class="w-40 h-40">
+                  <canvas #simChart></canvas>
+                </div>
+                <div class="absolute text-center">
+                  <div class="text-2xl font-display">
+                    {{ data?.total || 0 }}
+                  </div>
+                  <div class="muted uppercase text-xs">Total</div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div
+                  *ngFor="let t of simTypes"
+                  class="flex justify-between items-center"
+                >
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="w-3 h-3 rounded-full"
+                      [style.background]="t.color"
+                    ></span
+                    >{{ t.name }}
+                  </div>
+                  <div class="font-semibold">{{ t.count }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6 mt-6">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h4 class="font-display">Total per Customer</h4>
+                <p class="muted">Top accounts</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div class="relative customer-chart-area">
+                <div class="chart-area">
+                  <canvas #customerChart></canvas>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div
+                  *ngFor="let c of topCustomers"
+                  class="flex justify-between items-center p-3 rounded-lg hover:bg-slate-50"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="avatar">{{ c.name.charAt(0) }}</div>
+                    <div>{{ c.name }}</div>
+                  </div>
+                  <div class="font-bold">{{ c.count }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #loadingTpl>
+          <div class="loading-wrap">
+            <ion-spinner name="crescent"></ion-spinner>
+          </div>
+        </ng-template>
+      </ion-content></div></ng-template
+></ion-content>

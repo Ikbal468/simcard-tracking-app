@@ -1,0 +1,74 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/sim-types"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ editing ? "Edit SIM Type" : "New SIM Type" }}</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="form-content">
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h2 class="form-title">
+          {{ editing ? "Update SIM Type" : "Add New SIM Type" }}
+        </h2>
+        <p class="form-subtitle">
+          {{
+            editing
+              ? "Modify the SIM type information below"
+              : "Define a new SIM card type and its properties"
+          }}
+        </p>
+      </div>
+
+      <div class="form-body">
+        <div class="form-group">
+          <label class="form-label"
+            >Type Name <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-input
+              class="form-input"
+              [(ngModel)]="model.name"
+              placeholder="Enter SIM type name (e.g., Standard, Micro, Nano)"
+              type="text"
+            ></ion-input>
+          </div>
+          <p class="form-help">Descriptive name for this SIM card type</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"
+            >Purchase Product <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-input
+              class="form-input"
+              [(ngModel)]="model.purchaseProduct"
+              placeholder="Enter product identifier (e.g., GSM-2G, LTE-4G)"
+              type="text"
+            ></ion-input>
+          </div>
+          <p class="form-help">
+            Product or service identifier for this SIM type
+          </p>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <ion-button fill="clear" class="btn-cancel" (click)="cancel()">
+          Cancel
+        </ion-button>
+        <ion-button class="btn-submit" (click)="save()">
+          <ion-icon
+            slot="start"
+            [name]="editing ? 'checkmark-circle' : 'add-circle'"
+          ></ion-icon>
+          {{ editing ? "Update SIM Type" : "Create SIM Type" }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,128 @@
+<ion-content>
+  <div class="assign-wrap">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h2>Assign Multiple SIMs</h2>
+          <p class="muted">
+            Select SIMs from inventory and assign them to a customer.
+          </p>
+        </div>
+        <div class="panel-actions">
+          <ion-button fill="clear" (click)="cancel()">
+            <ion-icon slot="start" name="arrow-back"></ion-icon>
+            Back
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="panel-controls">
+        <div class="select-customer">
+          <label class="label">Select Customer</label>
+          <ion-item lines="none" class="select-item">
+            <ion-select [(ngModel)]="selectedCustomer">
+              <ion-select-option [value]="null"
+                >Choose a customer --</ion-select-option
+              >
+              <ion-select-option *ngFor="let c of customers" [value]="c.id">{{
+                c.name
+              }}</ion-select-option>
+            </ion-select>
+            <ion-icon
+              slot="end"
+              name="unfold_more"
+              class="select-arrow"
+            ></ion-icon>
+          </ion-item>
+        </div>
+
+        <div class="control-actions">
+          <ion-button fill="outline" (click)="selectAll()"
+            >Select All</ion-button
+          >
+          <ion-button fill="clear" (click)="clearSelection()">Clear</ion-button>
+          <ion-button
+            color="primary"
+            (click)="assign()"
+            [disabled]="!selected.size || selectedCustomer == null"
+          >
+            <span>Assign Selected</span>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="panel-list">
+        <table class="list-table">
+          <tbody>
+            <tr *ngFor="let s of sims" class="list-row">
+              <td class="td-checkbox">
+                <ion-checkbox
+                  [checked]="selected.has(s.id)"
+                  (ionChange)="toggleSelect(s.id)"
+                ></ion-checkbox>
+              </td>
+              <td class="td-main">
+                <div class="main-col">
+                  <div class="sn">{{ s.serialNumber || s.msisdn || "-" }}</div>
+                  <div class="meta">
+                    <span class="small"
+                      >ID: <strong>{{ s.id }}</strong></span
+                    >
+                    <span class="dot">•</span>
+                    <span class="small">IMSI: {{ s.imsi || "-" }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="td-badge">
+                <span class="badge in-stock">In Stock</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="!sims || sims.length === 0" class="empty">
+          No SIMs in stock.
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <p class="footer-left">
+          Showing <strong>{{ sims.length }}</strong> SIMs in stock
+        </p>
+        <div class="footer-right">
+          <span class="selected-count"
+            ><strong>{{ selected.size }}</strong> SIM selected</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card info-primary">
+        <ion-icon class="icon" name="information-circle-outline"></ion-icon>
+        <h3>Bulk Actions</h3>
+        <p>
+          Assigning multiple SIMs will update their status to "OUT_STOCK" and
+          link them to the selected customer profile instantly.
+        </p>
+      </div>
+      <div class="info-card info-warning">
+        <ion-icon class="icon" name="warning-outline"></ion-icon>
+        <h3>Important Note</h3>
+        <p>
+          Only SIM cards with "IN_STOCK" status can be assigned. Already active
+          cards will not appear in this list.
+        </p>
+      </div>
+      <div class="info-card info-success">
+        <ion-icon class="icon" name="receipt-outline"></ion-icon>
+        <h3>Receipts</h3>
+        <p>
+          A transaction record will be generated automatically for this
+          assignment. You can view it in the Transaction History.
+        </p>
+      </div>
+    </div>
+  </div>
+</ion-content>

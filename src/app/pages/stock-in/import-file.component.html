@@ -1,0 +1,113 @@
+<ion-content class="import-page">
+  <div class="container">
+    <div class="header-row">
+      <div class="title-row">
+        <h2>Import File</h2>
+        <p class="subtitle">
+          Upload a spreadsheet to bulk import SIM card records
+        </p>
+      </div>
+      <div class="actions-row">
+        <ion-button fill="clear" (click)="goBack()">
+          <ion-icon slot="start" name="arrow-back"></ion-icon>
+          Back
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Select File to Import</h3>
+        <p class="muted">Supported formats: .xlsx, .csv</p>
+
+        <div
+          class="drop-area"
+          (click)="fileInput.click()"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+        >
+          <div class="drop-icon">
+            <ion-icon name="cloud-upload" class="big-icon"></ion-icon>
+          </div>
+          <h4>Drag and drop your file here</h4>
+          <p class="muted">
+            Upload the completed template file to import bulk records into the
+            system.
+          </p>
+          <div class="drop-actions">
+            <ion-button
+              class="choose"
+              (click)="onChooseClick($event, fileInput)"
+            >
+              <ion-icon slot="start" name="document-attach"></ion-icon>
+              Choose File
+            </ion-button>
+          </div>
+          <input
+            #fileInput
+            type="file"
+            accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv"
+            hidden
+            (change)="onFileSelected($event)"
+          />
+        </div>
+
+        <p class="muted" *ngIf="fileName" style="margin-top: 10px">
+          File: <span class="file-name">{{ fileName }}</span>
+        </p>
+
+        <div class="import-controls">
+          <ion-button
+            expand="block"
+            color="primary"
+            (click)="importFile()"
+            [disabled]="!selectedFile || isImporting"
+          >
+            <ion-icon slot="start" name="cloud-upload"></ion-icon>
+            Import
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card instructions">
+      <div class="card-body">
+        <h3 class="card-title">Instructions</h3>
+        <div class="instruction-list">
+          <div class="instruction">
+            <div class="icon bg-info">
+              <ion-icon name="information-circle"></ion-icon>
+            </div>
+            <div>
+              <h4>Prepare your data</h4>
+              <p class="muted">
+                Select a file containing SIM card data. Ensure required columns
+                match the system template.
+              </p>
+            </div>
+          </div>
+          <div class="instruction">
+            <div class="icon bg-success">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+            <div>
+              <h4>System logic</h4>
+              <p class="muted">
+                New records will be imported. Existing ICCIDs will be skipped.
+              </p>
+            </div>
+          </div>
+          <div class="instruction">
+            <div class="icon bg-warning">
+              <ion-icon name="alert-circle"></ion-icon>
+            </div>
+            <div>
+              <h4>Handling duplicates</h4>
+              <p class="muted">Duplicate rows will be skipped during import.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

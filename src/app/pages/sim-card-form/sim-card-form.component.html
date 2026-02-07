@@ -1,0 +1,107 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/sim-cards"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ editing ? "Edit SIM Card" : "New SIM Card" }}</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="form-content">
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h2 class="form-title">
+          {{ editing ? "Update SIM Card Details" : "Add New SIM Card" }}
+        </h2>
+        <p class="form-subtitle">
+          {{
+            editing
+              ? "Modify the information below to update this SIM card"
+              : "Fill in the details to register a new SIM card into inventory"
+          }}
+        </p>
+      </div>
+
+      <div class="form-body">
+        <div class="form-group">
+          <label class="form-label"
+            >MSISDN <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-input
+              class="form-input"
+              [(ngModel)]="model.serialNumber"
+              placeholder="Enter serial number (e.g., 8901234567890123456)"
+              type="text"
+            ></ion-input>
+          </div>
+          <p class="form-help">Unique identifier for this SIM card</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">IMSI</label>
+          <div class="input-wrapper">
+            <ion-input
+              class="form-input"
+              [(ngModel)]="model.imsi"
+              placeholder="Enter IMSI (e.g., 310150123456789)"
+              type="text"
+            ></ion-input>
+          </div>
+          <p class="form-help">International Mobile Subscriber Identity</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"
+            >SIM Type <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-select
+              class="form-select"
+              [(ngModel)]="model.simTypeId"
+              interface="popover"
+              placeholder="Select SIM type"
+            >
+              <ion-select-option *ngFor="let st of simTypes" [value]="st.id">
+                {{ st.name }} - {{ st.purchaseProduct }}
+              </ion-select-option>
+            </ion-select>
+          </div>
+          <p class="form-help">
+            Choose the type of SIM card from available options
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"
+            >Status <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-select
+              class="form-select"
+              [(ngModel)]="model.status"
+              interface="popover"
+            >
+              <ion-select-option value="IN_STOCK">In Stock</ion-select-option>
+            </ion-select>
+          </div>
+          <p class="form-help">Current inventory status</p>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <ion-button fill="clear" class="btn-cancel" (click)="cancel()">
+          Cancel
+        </ion-button>
+        <ion-button class="btn-submit" (click)="save()">
+          <ion-icon
+            slot="start"
+            [name]="editing ? 'checkmark-circle' : 'add-circle'"
+          ></ion-icon>
+          {{ editing ? "Update SIM Card" : "Create SIM Card" }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

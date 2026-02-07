@@ -1,0 +1,44 @@
+<ion-content *ngIf="simCard">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="edit()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+      <ion-button color="danger" (click)="delete()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ simCard.msisdn || simCard.number }}</ion-card-title>
+      <ion-card-subtitle>ID: {{ simCard.id }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" size-md="6">
+            <h3>Details</h3>
+            <p>
+              <strong>Status:</strong> {{ simCard.status || simCard.state }}
+            </p>
+            <p>
+              <strong>Type:</strong> {{ simCard.simType?.name || simCard.type }}
+            </p>
+            <p><strong>Provider:</strong> {{ simCard.provider || "-" }}</p>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <h3>Owner</h3>
+            <p>
+              {{ simCard.customer?.name || simCard.owner || "Not assigned" }}
+            </p>
+            <p class="ion-text-muted">
+              {{ simCard.customer?.phone || simCard.ownerPhone || "" }}
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

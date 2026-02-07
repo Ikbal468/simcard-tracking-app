@@ -1,0 +1,111 @@
+<ion-content>
+  <div class="page-container">
+    <!-- <div class="breadcrumbs">
+      Inventory <span class="chev">›</span> Stock In
+    </div> -->
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Stock In</h1>
+          <p class="subtitle">
+            Manage incoming SIM card inventory and stock levels.
+          </p>
+        </div>
+        <div class="actions">
+          <ion-button
+            fill="clear"
+            class="btn upload"
+            (click)="navigateToImport()"
+          >
+            <ion-icon slot="start" name="cloud-upload"></ion-icon>
+            Upload CSV
+          </ion-button>
+          <ion-button class="btn add" color="primary" (click)="add()">
+            <ion-icon slot="start" name="add"></ion-icon>
+            Add New SIM
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="inventory-list">
+        <div *ngFor="let s of sims; let i = index" class="inventory-item">
+          <div class="item-left">
+            <div class="row-num">{{ (page - 1) * limit + i + 1 }}</div>
+          </div>
+          <div class="item-main">
+            <h3 class="item-title">{{ s.serialNumber || s.msisdn || "-" }}</h3>
+            <div class="item-meta">
+              <!-- <span
+                >ID: <strong>{{ s.id }}</strong></span
+              >
+              <span class="sep">|</span> -->
+              <span
+                >IMSI: <strong>{{ s.imsi || "-" }}</strong></span
+              >
+            </div>
+            <div class="item-badge">
+              Type: {{ s.simType?.name || "-" }} ({{
+                s.simType?.purchaseProduct || "-"
+              }})
+            </div>
+          </div>
+          <div class="item-actions">
+            <ion-button
+              fill="clear"
+              (click)="$event.stopPropagation(); edit(s.id)"
+              title="Edit"
+            >
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+            <ion-button
+              fill="clear"
+              color="danger"
+              (click)="$event.stopPropagation(); remove(s.id)"
+              title="Remove"
+            >
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <div class="per-page">
+            <label class="per-page-label">Items per page:</label>
+            <div class="select-wrap">
+              <select
+                class="page-select"
+                [(ngModel)]="limit"
+                (ngModelChange)="onLimitChange($event)"
+              >
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="100">100</option>
+              </select>
+              <div class="select-arrow">▾</div>
+            </div>
+          </div>
+          <div class="range">
+            {{ (page - 1) * limit + (sims.length ? 1 : 0) }} –
+            {{ (page - 1) * limit + (sims.length || 0) }} of {{ total }}
+          </div>
+        </div>
+        <div class="footer-right">
+          <button class="page-btn" [disabled]="page <= 1" (click)="prevPage()">
+            ‹
+          </button>
+          <button
+            class="page-btn"
+            [disabled]="page >= totalPages"
+            (click)="nextPage()"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

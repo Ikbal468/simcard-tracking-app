@@ -1,0 +1,87 @@
+<ion-content>
+  <div class="simtypes-page">
+    <div class="page-card">
+      <div class="page-header">
+        <div class="header-left">
+          <div class="title-row">
+            <h2 class="page-title">SIM Types</h2>
+            <span class="count-badge">{{ simTypes.length }} Total</span>
+          </div>
+          <p class="subheading">Manage and organize your SIM card providers</p>
+        </div>
+
+        <div class="header-right">
+          <ion-button class="add-btn" (click)="add()">
+            <ion-icon slot="start" name="add"></ion-icon>
+            ADD SIM TYPE
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="cards-wrap">
+        <div class="cards-grid">
+          <div
+            class="card"
+            *ngFor="let t of simTypes; let i = index"
+            [ngStyle]="{ '--accent': accentColors[i % accentColors.length] }"
+          >
+            <div class="card-inner">
+              <div class="media">
+                <div class="icon-box">
+                  <ng-container *ngIf="getIconFor(t) as icon; else initials">
+                    <img [src]="icon" alt="{{ t.name }}" class="brand-icon" />
+                  </ng-container>
+                  <ng-template #initials>
+                    <div class="initial">
+                      {{ (t.name || " ")[0] | uppercase }}
+                    </div>
+                  </ng-template>
+                </div>
+                <div>
+                  <h3 class="card-title">{{ t.name }}</h3>
+                  <!-- <p class="card-sub">
+                    {{ t.purchaseProduct || "Operator" | uppercase }}
+                  </p> -->
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="meta-block">
+                  <p class="meta-label">Purchase Product</p>
+                  <p class="meta-value">{{ t.purchaseProduct || "-" }}</p>
+                </div>
+                <div class="card-actions">
+                  <button
+                    class="action-btn edit"
+                    (click)="$event.stopPropagation(); edit(t.id)"
+                    title="Edit"
+                  >
+                    <ion-icon name="create"></ion-icon>
+                  </button>
+                  <button
+                    class="action-btn delete"
+                    (click)="$event.stopPropagation(); remove(t.id)"
+                    title="Remove"
+                  >
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-card" (click)="add()">
+            <div class="add-inner">
+              <div class="add-icon"><ion-icon name="add"></ion-icon></div>
+              <h4>Add new SIM type</h4>
+              <p class="muted">
+                Expand your inventory by adding new operators and product
+                configurations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

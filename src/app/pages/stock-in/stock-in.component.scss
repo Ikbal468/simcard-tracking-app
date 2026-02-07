@@ -1,0 +1,249 @@
+/* Modern Stock In styles inspired by provided reference */
+.page-container {
+  padding: 20px;
+}
+
+.breadcrumbs {
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.breadcrumbs .chev {
+  margin: 0 8px;
+  color: #94a3b8;
+}
+
+.page-card {
+  background: var(--ion-background-color, #fff);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+}
+
+.page-title h1 {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 600;
+  color: var(--ion-text-color, #111827);
+}
+.page-title .subtitle {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.actions .btn {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  /* For Ionic `ion-button` (shadow DOM) set the CSS variable the component uses */
+  --border-radius: 10px;
+  /* fallback for regular elements */
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.actions .btn.upload {
+  color: #374151;
+}
+
+.inventory-list {
+  padding: 8px 0;
+}
+
+.inventory-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  transition:
+    background 0.12s ease,
+    transform 0.12s ease;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+}
+.inventory-item:hover {
+  background: rgba(99, 102, 241, 0.03);
+  transform: translateY(-1px);
+}
+
+.item-main {
+  flex: 1;
+}
+.item-left {
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.row-num {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-weight: 600;
+}
+.item-title {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.item-meta {
+  color: #64748b;
+  font-size: 13px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.item-meta .sep {
+  color: rgba(99, 102, 241, 0.12);
+  margin: 0 8px;
+}
+
+.item-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.08);
+  color: #2563eb;
+  font-size: 12px;
+}
+
+.item-actions ion-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
+}
+
+.page-footer {
+  padding: 12px 22px;
+  background: rgba(247, 250, 252, 0.6);
+  border-top: 1px solid rgba(15, 23, 42, 0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-footer .muted {
+  color: #64748b;
+  font-size: 13px;
+  margin: 0;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.per-page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.per-page-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+.select-wrap {
+  position: relative;
+  display: inline-block;
+}
+.page-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid #e6eef7;
+  color: #475569;
+  padding: 8px 36px 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 96px;
+  box-shadow: 0 1px 4px rgba(2, 6, 23, 0.04);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.page-select:focus {
+  outline: none;
+  border-color: #c7e0ff;
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.12);
+}
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #9ca3af;
+  font-size: 14px;
+}
+.range {
+  font-size: 14px;
+  color: #475569;
+}
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.page-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #eef2f7;
+  color: #6b7280;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  cursor: pointer;
+}
+.page-btn:hover:not([disabled]) {
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+.page-btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* small devices adjustments */
+@media (max-width: 600px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .actions .btn {
+    width: 48%;
+  }
+}

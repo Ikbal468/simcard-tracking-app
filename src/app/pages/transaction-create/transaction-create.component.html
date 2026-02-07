@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Transaction</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">SIM Card ID</ion-label>
+      <ion-input [(ngModel)]="payload.simCardId"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Customer ID</ion-label>
+      <ion-input [(ngModel)]="payload.customerId"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="payload.amount"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="submit()">Submit</ion-button>
+
+  <div *ngIf="result">
+    <pre>{{ result | json }}</pre>
+  </div>
+</ion-content>
