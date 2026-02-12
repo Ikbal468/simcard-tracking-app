@@ -139,13 +139,25 @@ export class StockInComponent implements OnInit {
         {
           text: 'Delete',
           handler: async () => {
-            this.api.deleteSimCard(id).subscribe(async () => {
-              const t = await this.toast.create({
-                message: 'SIM deleted',
-                duration: 1200,
-              });
-              await t.present();
-              this.load();
+            this.api.deleteSimCard(id).subscribe({
+              next: async () => {
+                const t = await this.toast.create({
+                  message: 'SIM deleted',
+                  duration: 1200,
+                });
+                await t.present();
+                this.load();
+              },
+              error: async (err) => {
+                const message =
+                  err?.error?.message || err?.message || 'Failed to delete SIM';
+                const t = await this.toast.create({
+                  message,
+                  duration: 3000,
+                  color: 'danger',
+                });
+                await t.present();
+              },
             });
           },
         },

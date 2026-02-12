@@ -53,14 +53,29 @@ export class TransactionFormComponent implements OnInit {
       type: this.model.type,
     };
     if (this.editing) {
-      this.api
-        .updateTransaction(this.model.id, payload)
-        .subscribe(() => this.finish('Updated'));
+      this.api.updateTransaction(this.model.id, payload).subscribe({
+        next: () => this.finish('Updated'),
+        error: (err) => this.showError(err),
+      });
     } else {
-      this.api
-        .createTransaction(payload)
-        .subscribe(() => this.finish('Created'));
+      this.api.createTransaction(payload).subscribe({
+        next: () => this.finish('Created'),
+        error: (err) => this.showError(err),
+      });
     }
+  }
+
+  async showError(err: any) {
+    const message =
+      err?.error?.message ||
+      err?.message ||
+      'Operation failed. Please try again.';
+    const t = await this.toast.create({
+      message,
+      duration: 3000,
+      color: 'danger',
+    });
+    await t.present();
   }
 
   async finish(action: string) {

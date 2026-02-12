@@ -137,24 +137,50 @@ export class StockOutComponent implements OnInit {
                       status: 'OUT_STOCK',
                       owner: Number(custId),
                     };
-                    this.api
-                      .updateSimCard(sim.id, payload)
-                      .subscribe(async () => {
+                    this.api.updateSimCard(sim.id, payload).subscribe({
+                      next: async () => {
                         // create transaction record
                         const tx = {
                           simCardId: Number(sim.id),
                           customerId: Number(custId),
                           type: 'STOCK_OUT',
                         };
-                        this.api.createTransaction(tx).subscribe(async () => {
-                          const t = await this.toast.create({
-                            message: 'Stocked out',
-                            duration: 1400,
-                          });
-                          await t.present();
-                          this.load();
+                        this.api.createTransaction(tx).subscribe({
+                          next: async () => {
+                            const t = await this.toast.create({
+                              message: 'Stocked out',
+                              duration: 1400,
+                            });
+                            await t.present();
+                            this.load();
+                          },
+                          error: async (err) => {
+                            const message =
+                              err?.error?.message ||
+                              err?.message ||
+                              'Failed to create transaction';
+                            const t = await this.toast.create({
+                              message,
+                              duration: 3000,
+                              color: 'danger',
+                            });
+                            await t.present();
+                          },
                         });
-                      });
+                      },
+                      error: async (err) => {
+                        const message =
+                          err?.error?.message ||
+                          err?.message ||
+                          'Failed to update SIM';
+                        const t = await this.toast.create({
+                          message,
+                          duration: 3000,
+                          color: 'danger',
+                        });
+                        await t.present();
+                      },
+                    });
                     return true;
                   },
                 },
@@ -273,13 +299,25 @@ export class StockOutComponent implements OnInit {
         {
           text: 'Delete',
           handler: async () => {
-            this.api.deleteSimCard(id).subscribe(async () => {
-              const t = await this.toast.create({
-                message: 'SIM deleted',
-                duration: 1200,
-              });
-              await t.present();
-              this.load();
+            this.api.deleteSimCard(id).subscribe({
+              next: async () => {
+                const t = await this.toast.create({
+                  message: 'SIM deleted',
+                  duration: 1200,
+                });
+                await t.present();
+                this.load();
+              },
+              error: async (err) => {
+                const message =
+                  err?.error?.message || err?.message || 'Failed to delete SIM';
+                const t = await this.toast.create({
+                  message,
+                  duration: 3000,
+                  color: 'danger',
+                });
+                await t.present();
+              },
             });
           },
         },

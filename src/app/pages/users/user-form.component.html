@@ -1,0 +1,107 @@
+<ion-content class="form-content">
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h2 class="form-title">
+          {{ editing ? "Update User" : "Add New User" }}
+        </h2>
+        <p class="form-subtitle">
+          {{
+            editing
+              ? "Modify the user information below"
+              : "Create a new system user and assign a role"
+          }}
+        </p>
+      </div>
+
+      <div class="form-body">
+        <div class="form-group">
+          <label class="form-label"
+            >Username <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-input
+              class="form-input"
+              [(ngModel)]="model.username"
+              placeholder="Enter username"
+              type="text"
+              autocomplete="new-username"
+            ></ion-input>
+          </div>
+          <p class="form-help">Unique username for login</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"
+            >Password <span class="required">*</span></label
+          >
+          <div class="input-wrapper">
+            <ion-input
+              class="form-input"
+              [(ngModel)]="model.password"
+              placeholder="Enter password"
+              type="password"
+              autocomplete="new-password"
+            ></ion-input>
+          </div>
+          <p class="form-help">Secure password for this account</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"
+            >User Role <span class="required">*</span></label
+          >
+          <div class="role-selector">
+            <div
+              *ngFor="let role of roles"
+              class="role-option"
+              [class.selected]="model.roleId === role.id"
+              (click)="model.roleId = role.id"
+            >
+              <div class="role-radio">
+                <div class="radio-outer">
+                  <div
+                    class="radio-inner"
+                    *ngIf="model.roleId === role.id"
+                  ></div>
+                </div>
+              </div>
+              <div class="role-info">
+                <div class="role-name">
+                  {{ role.name | titlecase }}
+                </div>
+                <div class="role-description">
+                  {{
+                    role.name === "admin"
+                      ? "Full system access with all permissions"
+                      : "Limited access with restricted permissions"
+                  }}
+                </div>
+              </div>
+              <div class="role-badge" *ngIf="role.name === 'admin'">
+                <ion-icon name="shield-checkmark"></ion-icon>
+              </div>
+              <div class="role-badge operator" *ngIf="role.name === 'operator'">
+                <ion-icon name="person"></ion-icon>
+              </div>
+            </div>
+          </div>
+          <p class="form-help">Select the appropriate role for this user</p>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <ion-button fill="clear" class="btn-cancel" (click)="cancel()">
+          Cancel
+        </ion-button>
+        <ion-button class="btn-submit" (click)="save()">
+          <ion-icon
+            slot="start"
+            [name]="editing ? 'checkmark-circle' : 'person-add'"
+          ></ion-icon>
+          {{ editing ? "Update User" : "Create User" }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -37,14 +37,27 @@ export class SimTypeFormComponent implements OnInit {
 
   save() {
     if (this.editing) {
-      this.api
-        .updateSimType(this.model.id, this.model)
-        .subscribe(() => this.finish('Updated'));
+      this.api.updateSimType(this.model.id, this.model).subscribe({
+        next: () => this.finish('Updated'),
+        error: (err: any) => this.handleSaveError(err),
+      });
     } else {
-      this.api
-        .createSimType(this.model)
-        .subscribe(() => this.finish('Created'));
+      this.api.createSimType(this.model).subscribe({
+        next: () => this.finish('Created'),
+        error: (err: any) => this.handleSaveError(err),
+      });
     }
+  }
+
+  async handleSaveError(err: any) {
+    const message = err?.error?.message || 'Failed to save SIM type';
+    const t = await this.toast.create({
+      message,
+      duration: 3000,
+      position: 'bottom',
+      color: 'danger',
+    });
+    await t.present();
   }
 
   async finish(action: string) {

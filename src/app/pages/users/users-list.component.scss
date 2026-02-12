@@ -1,0 +1,283 @@
+.page-wrap {
+  min-height: 100%;
+  background: #f8fafc;
+  padding: 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  gap: 12px;
+
+  .title h1 {
+    font-size: 23px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 0.25rem;
+  }
+
+  .title p {
+    font-size: 15px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+}
+
+.card-table {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s;
+
+      &:hover {
+        background: #f8fafc;
+      }
+    }
+
+    td {
+      padding: 1rem;
+      color: #334155;
+      vertical-align: middle;
+    }
+  }
+}
+
+.customer-name {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .avatar-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .name-lg {
+    font-weight: 600;
+    color: #1e293b;
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #e2e8f0;
+  color: #64748b;
+
+  &.active {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+}
+
+.permissions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .permission-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    background: #ede9fe;
+    color: #7c3aed;
+    font-weight: 500;
+  }
+
+  .text-muted {
+    color: #94a3b8;
+    font-size: 0.875rem;
+  }
+}
+
+.permissions-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.permission-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+}
+
+.resource-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.access-badge {
+  font-size: 0.625rem;
+  font-weight: 500;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+
+  &.full {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+  }
+
+  &.partial {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+  }
+}
+
+.permissions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.permission-group {
+  padding: 8px 12px;
+  background: #f7f9fc;
+  border-radius: 8px;
+}
+
+.resource-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #1e293b;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.action-badge {
+  background: #e4e7ff;
+  color: #3f51b5;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.full-access-badge {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.text-muted {
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  margin-left: 0.25rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  ion-icon {
+    font-size: 1.25rem;
+    color: #64748b;
+  }
+
+  &.edit:hover {
+    background: #dbeafe;
+    ion-icon {
+      color: #2563eb;
+    }
+  }
+
+  &.perms:hover {
+    background: #ede9fe;
+    ion-icon {
+      color: #7c3aed;
+    }
+  }
+
+  &.delete:hover {
+    background: #fee2e2;
+    ion-icon {
+      color: #dc2626;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .permissions-list {
+    max-width: 200px;
+    .permission-tag {
+      font-size: 0.65rem;
+    }
+  }
+}

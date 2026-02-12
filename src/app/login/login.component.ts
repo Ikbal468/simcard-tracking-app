@@ -69,6 +69,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
               'username',
               res.user?.username || this.username,
             );
+            window.localStorage.setItem(
+              'user_role',
+              res.user?.role || 'operator',
+            );
+            window.localStorage.setItem(
+              'user_permissions',
+              JSON.stringify(res.user?.permissions || []),
+            );
             this.router.navigate(['/home']);
           } else {
             this.showToast('Login failed');

@@ -1,0 +1,114 @@
+<ion-content>
+  <div class="page-wrap">
+    <div class="container">
+      <div class="page-header">
+        <div class="title">
+          <h1>Users Management</h1>
+          <p>Manage system users and their roles/permissions.</p>
+        </div>
+        <ion-button color="primary" (click)="createUser()">
+          <ion-icon slot="start" name="person-add"></ion-icon>
+          Create User
+        </ion-button>
+      </div>
+
+      <div class="card-table">
+        <div class="table-wrap">
+          <table class="customers-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Permissions</th>
+                <th style="text-align: right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let u of users; let i = index">
+                <td>
+                  <div class="customer-name">
+                    <div class="avatar-circle">
+                      {{ i + 1 }}
+                    </div>
+                    <div>
+                      <div class="name-lg">{{ u.username }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span
+                    class="status-badge"
+                    [ngClass]="{ active: u.role?.name === 'admin' }"
+                    >{{ u.role?.name || "operator" }}</span
+                  >
+                </td>
+                <td>
+                  <div class="permissions-inline">
+                    <ng-container *ngIf="u.groupedPermissions as grouped">
+                      <div
+                        *ngFor="let resource of grouped | keyvalue"
+                        class="permission-badge-group"
+                      >
+                        <span class="resource-name">
+                          {{
+                            RESOURCE_LABELS[asString(resource.key)] ||
+                              resource.key
+                          }}
+                        </span>
+                        <span
+                          *ngIf="
+                            hasFullAccess(asStringArray(resource.value));
+                            else partial
+                          "
+                          class="access-badge full"
+                        >
+                          Full
+                        </span>
+                        <ng-template #partial>
+                          <span
+                            *ngFor="let action of asStringArray(resource.value)"
+                            class="access-badge partial"
+                          >
+                            {{ ACTION_LABELS[action] || action }}
+                          </span>
+                        </ng-template>
+                      </div>
+
+                      <span
+                        *ngIf="(grouped | keyvalue)?.length === 0"
+                        class="text-muted"
+                      >
+                        No permissions
+                      </span>
+                    </ng-container>
+                  </div>
+                </td>
+                <td style="text-align: right">
+                  <!-- <button
+                    class="action-btn edit"
+                    (click)="$event.stopPropagation(); changeRole(u)"
+                  >
+                    <ion-icon name="key"></ion-icon>
+                  </button> -->
+                  <button
+                    *ngIf="isAdmin"
+                    class="action-btn perms"
+                    (click)="$event.stopPropagation(); openPermissions(u)"
+                  >
+                    <ion-icon name="options"></ion-icon>
+                  </button>
+                  <button
+                    class="action-btn delete"
+                    (click)="$event.stopPropagation(); deleteUser(u.id)"
+                  >
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

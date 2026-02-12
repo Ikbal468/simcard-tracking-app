@@ -8,7 +8,9 @@ export interface SimType {
   // add other fields if present on the backend
 }
 
-const API_BASE = 'http://localhost:3000/api'; // <-- backend uses /api prefix
+export const API_BASE = 'http://localhost:3300/api'; // for localhost testing
+// export const API_BASE = 'https://api.sim-managed.prototype.bugzstudio.com/api';
+// export const API_BASE = 'https://simcard-tracking-api.onrender.com/api';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -135,5 +137,48 @@ export class ApiService {
   // auth
   login(payload: { username: string; password: string }): Observable<any> {
     return this.http.post(`${API_BASE}/auth/login`, payload);
+  }
+
+  // users
+  getUsers(): Observable<any> {
+    return this.http.get(`${API_BASE}/users`);
+  }
+
+  createUser(payload: any): Observable<any> {
+    return this.http.post(`${API_BASE}/users`, payload);
+  }
+
+  changeUserRole(id: number, payload: { roleId: number }): Observable<any> {
+    return this.http.patch(`${API_BASE}/users/${id}/role`, payload);
+  }
+
+  getRoles(): Observable<any> {
+    return this.http.get(`${API_BASE}/users/roles`);
+  }
+
+  // set permissions for a specific user's role
+  setUserPermissions(
+    userId: number,
+    roleId: number,
+    payload: { permissionIds: number[] },
+  ): Observable<any> {
+    return this.http.put(
+      `${API_BASE}/users/${userId}/roles/${roleId}/permissions`,
+      payload,
+    );
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${API_BASE}/users/${id}`);
+  }
+
+  setRolePermissions(
+    roleId: number,
+    payload: { permissionIds: number[] },
+  ): Observable<any> {
+    return this.http.put(
+      `${API_BASE}/users/roles/${roleId}/permissions`,
+      payload,
+    );
   }
 }

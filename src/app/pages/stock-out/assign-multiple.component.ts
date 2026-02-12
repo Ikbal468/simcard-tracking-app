@@ -98,10 +98,12 @@ export class AssignMultipleComponent implements OnInit {
       });
       await t.present();
       this.router.navigate(['/stock-out']);
-    } catch (err) {
+    } catch (err: any) {
+      const message = err?.error?.message || err?.message || 'Assign failed';
       const t = await this.toast.create({
-        message: 'Assign failed',
-        duration: 2000,
+        message,
+        duration: 3000,
+        color: 'danger',
       });
       await t.present();
     } finally {

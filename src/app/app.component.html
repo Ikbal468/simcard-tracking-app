@@ -85,6 +85,20 @@
               ></ion-icon>
               <ion-label>Settings</ion-label>
             </ion-item> -->
+
+            <ion-item
+              *ngIf="isAdmin"
+              class="menuitem"
+              [class.active-link]="isActive('/users')"
+              (click)="openPage('/users')"
+            >
+              <ion-icon
+                class="menuicon"
+                name="person-add"
+                slot="start"
+              ></ion-icon>
+              <ion-label>Users Management</ion-label>
+            </ion-item>
           </ion-list>
         </nav>
       </ion-content>
@@ -124,7 +138,7 @@
               <div class="profile-section" (click)="onProfileClick()">
                 <div class="profile-info">
                   <div class="profile-name">{{ username }}</div>
-                  <div class="profile-role">Administrator</div>
+                  <!-- <div class="profile-role">Administrator</div> -->
                 </div>
                 <div class="profile-avatar">
                   <ion-icon name="person"></ion-icon>

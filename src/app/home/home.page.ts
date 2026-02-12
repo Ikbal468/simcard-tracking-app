@@ -6,6 +6,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API_BASE } from '../services/api.service';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -45,7 +46,7 @@ export class HomePage implements AfterViewInit, OnDestroy {
 
   loadDashboard() {
     this.loading = true;
-    this.http.get('http://localhost:3000/api/dashboard').subscribe({
+    this.http.get(`${API_BASE}/dashboard`).subscribe({
       next: (res: any) => {
         this.data = res;
         // prepare sim types with colors

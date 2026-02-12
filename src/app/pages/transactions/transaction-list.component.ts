@@ -174,13 +174,27 @@ export class TransactionListComponent implements OnInit {
         {
           text: 'Delete',
           handler: async () => {
-            this.api.deleteTransaction(id).subscribe(async () => {
-              const t = await this.toast.create({
-                message: 'Deleted',
-                duration: 1200,
-              });
-              await t.present();
-              this.load();
+            this.api.deleteTransaction(id).subscribe({
+              next: async () => {
+                const t = await this.toast.create({
+                  message: 'Deleted',
+                  duration: 1200,
+                });
+                await t.present();
+                this.load();
+              },
+              error: async (err) => {
+                const message =
+                  err?.error?.message ||
+                  err?.message ||
+                  'Failed to delete transaction';
+                const t = await this.toast.create({
+                  message,
+                  duration: 3000,
+                  color: 'danger',
+                });
+                await t.present();
+              },
             });
           },
         },

@@ -21,11 +21,36 @@ export class SimTypesListComponent implements OnInit {
   getIconFor(t: any): string | null {
     const name = (t?.name || '').toString().toLowerCase();
     if (!name) return null;
-    if (name.includes('maxis')) return 'assets/icon/maxis.jpg';
-    if (name.includes('digi')) return 'assets/icon/Digi-Logo.jpg';
-    if (name.includes('flexiroam')) return 'assets/icon/unnamed.png';
-    if (name.includes('singtel')) return 'assets/icon/Singtel_Logo_New.png';
-    return null;
+
+    const domainMap: any = {
+      maxis: 'maxis.com.my', // Maxis / Hotlink (the image icon not show correctly)
+      hotlink: 'hotlink.com',
+      digi: 'digi.com.my', // Digi
+      celcom: 'celcom.com.my', // Celcom / Xpax
+      celcomdigi: 'celcomdigi.com', // Celcom + Digi merged brand
+      umobile: 'u.com.my', // U Mobile
+      tunetalk: 'tunetalk.com', // Tune Talk
+      xox: 'xox.com.my', // XOX Mobile / ONEXOX
+      yes: 'yes.my', // Yes 4G
+      unifi: 'unifi.com.my', // Unifi Mobile (the image icon not show correctly)
+      redone: 'redone.com.my', // redONE MVNO
+      yoodo: 'yoodo.com.my', // yoodo MVNO
+
+      singtel: 'singtel.com', // optional if you still want
+      flexiroam: 'flexiroam.com', // optional
+      airalo: 'airalo.com', // optional
+      ubigi: 'ubigi.com', // optional
+      holafly: 'holafly.com', // optional
+      simcorner: 'simcorner.com', // optional
+    };
+
+    for (const key in domainMap) {
+      if (name.includes(key)) {
+        return `https://logos.hunter.io/${domainMap[key]}`;
+      }
+    }
+
+    return null; // unknown SIM type
   }
 
   constructor(
@@ -65,13 +90,27 @@ export class SimTypesListComponent implements OnInit {
         {
           text: 'Delete',
           handler: () => {
-            this.api.deleteSimType(id).subscribe(async () => {
-              const t = await this.toast.create({
-                message: 'Deleted',
-                duration: 1200,
-              });
-              await t.present();
-              this.load();
+            this.api.deleteSimType(id).subscribe({
+              next: async () => {
+                const t = await this.toast.create({
+                  message: 'Deleted',
+                  duration: 1200,
+                });
+                await t.present();
+                this.load();
+              },
+              error: async (err) => {
+                const message =
+                  err?.error?.message ||
+                  err?.message ||
+                  'Failed to delete SIM type';
+                const t = await this.toast.create({
+                  message,
+                  duration: 3000,
+                  color: 'danger',
+                });
+                await t.present();
+              },
             });
           },
         },

@@ -53,13 +53,27 @@ export class CustomersListComponent implements OnInit {
         {
           text: 'Delete',
           handler: async () => {
-            this.api.deleteCustomer(id).subscribe(async () => {
-              const t = await this.toast.create({
-                message: 'Customer deleted',
-                duration: 1200,
-              });
-              await t.present();
-              this.load();
+            this.api.deleteCustomer(id).subscribe({
+              next: async () => {
+                const t = await this.toast.create({
+                  message: 'Customer deleted',
+                  duration: 1200,
+                });
+                await t.present();
+                this.load();
+              },
+              error: async (err) => {
+                const message =
+                  err?.error?.message ||
+                  err?.message ||
+                  'Failed to delete customer';
+                const t = await this.toast.create({
+                  message,
+                  duration: 3000,
+                  color: 'danger',
+                });
+                await t.present();
+              },
             });
           },
         },

@@ -15,7 +15,8 @@ import { AssignMultipleComponent } from './pages/stock-out/assign-multiple.compo
 import { TransactionListComponent } from './pages/transactions/transaction-list.component';
 import { TransactionFormComponent } from './pages/transactions/transaction-form.component';
 import { LoginComponent } from '../app/login/login.component';
-
+import { UsersListComponent } from './pages/users/users-list.component';
+import { UserFormComponent } from './pages/users/user-form.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -42,6 +43,8 @@ const routes: Routes = [
   { path: 'transactions/:id/edit', component: TransactionFormComponent },
   { path: 'transactions/create', component: TransactionCreateComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'users', component: UsersListComponent },
+  { path: 'users/new', component: UserFormComponent },
   {
     path: '',
     redirectTo: 'login',

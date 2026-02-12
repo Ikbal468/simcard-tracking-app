@@ -16,6 +16,11 @@ export class AppComponent implements OnInit, OnDestroy {
   activePath = '';
   private routerSub: Subscription | null = null;
 
+  get isAdmin(): boolean {
+    const role = window.localStorage.getItem('user_role');
+    return role === 'admin';
+  }
+
   get isLoginPage(): boolean {
     return this.activePath === '/login' || this.activePath === '/';
   }
@@ -67,6 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     window.localStorage.removeItem('access_token');
     window.localStorage.removeItem('username');
+    window.localStorage.removeItem('user_role');
+    window.localStorage.removeItem('user_permissions');
     this.username = 'root';
     this.menu.close();
     this.router.navigate(['/login']);
