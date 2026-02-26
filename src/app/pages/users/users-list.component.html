@@ -91,7 +91,7 @@
                     <ion-icon name="key"></ion-icon>
                   </button> -->
                   <button
-                    *ngIf="isAdmin"
+                    *ngIf="u.role?.name !== 'admin'"
                     class="action-btn perms"
                     (click)="$event.stopPropagation(); openPermissions(u)"
                   >

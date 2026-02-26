@@ -21,6 +21,13 @@ export class AppComponent implements OnInit, OnDestroy {
     return role === 'admin';
   }
 
+  get profileRole(): string {
+    const role = window.localStorage.getItem('user_role') || '';
+    if (role === 'admin') return 'Administrator';
+    if (role === 'operator') return 'Operator';
+    return role;
+  }
+
   get isLoginPage(): boolean {
     return this.activePath === '/login' || this.activePath === '/';
   }
